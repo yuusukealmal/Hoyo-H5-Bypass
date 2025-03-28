@@ -12,9 +12,8 @@ async def finish_task(tasks, region, token):
     for task in tasks["tasks"]:
         try:
             URL = "https://sg-hk4e-api.hoyoverse.com/event/merlin_v2/v3/flow/run/hk4e_global/{}/2?game_biz=hk4e_global"
-            event_id = "e20250326newland"
             r = requests.get(
-                URL.format(event_id), cookies=token, params={"task_id": task}
+                URL.format(tasks["eventid"]), cookies=token, params={"task_id": task}
             ).json()
             print(r)
             if r["retcode"] in [0, 2007, 2004]:
