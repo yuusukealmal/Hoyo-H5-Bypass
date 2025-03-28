@@ -51,7 +51,7 @@ async def main(get_task):
     else:
         for region in region_list:
             token["e_hk4e_token"] = region["e_hk4e_token"]
-    await finish_task(selected_event, region, token)
+            await finish_task(selected_event, region, token)
 
 
 if __name__ == "__main__":
