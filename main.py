@@ -42,10 +42,17 @@ async def main(get_task):
     )
     if get_task:
         token["e_hk4e_token"] = region_list[0]["e_hk4e_token"]
-        tasks = await get_tasks_id(token)
+        tasks = await get_tasks_id(selected_event["eventid"],token)
+        selected_event["tasks"] = [task["task_id"] for task in tasks["data"]["tasks"]]
+
         with open("event.json", "r", encoding="utf-8") as f:
             data = json.load(f)
-            data[0]["tasks"] = [task["task_id"] for task in tasks["data"]["tasks"]]
+
+        for i, event in enumerate(data):
+            if event["name"] == selected_event["name"]:
+                data[i] = selected_event
+                break
+
         with open("event.json", "w", encoding="utf-8") as f:
             json.dump(data, f, indent=4, ensure_ascii=False)
     else:
